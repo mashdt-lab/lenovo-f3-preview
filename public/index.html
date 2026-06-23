@@ -2,66 +2,163 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Lenovo Smart Lock F3 — 35s Preview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lenovo Smart Lock F3 — Index</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-      color: #F5F5F5;
-      padding: 16px;
+    :root {
+      --bg: #0A0A0A;
+      --bg2: #1A1A1A;
+      --gold: #D4A574;
+      --fg: #F5F5F5;
+      --dim: #888;
+      --line: #2a2a2a;
     }
-    .container {
-      max-width: 420px;
-      width: 100%;
-      text-align: center;
+    html, body {
+      background: var(--bg);
+      color: var(--fg);
+      min-height: 100vh;
+      font-family: 'Sukhumvit Set', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      font-weight: 300;
+    }
+    .wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 80px 32px 120px;
+    }
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
     }
     h1 {
-      font-size: 20px;
-      font-weight: 600;
-      color: #D4A574;
-      margin-bottom: 6px;
-      letter-spacing: 0.02em;
+      font-size: 56px;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin-bottom: 16px;
     }
-    .sub {
-      font-size: 13px;
-      color: #888;
-      margin-bottom: 20px;
+    h1 em {
+      font-style: italic;
+      color: var(--gold);
     }
-    video {
-      width: 100%;
-      max-width: 360px;
-      border-radius: 12px;
-      background: #000;
-      box-shadow: 0 8px 32px rgba(212, 165, 116, 0.15);
+    .lede {
+      font-size: 18px;
+      color: var(--dim);
+      max-width: 640px;
+      line-height: 1.6;
+      margin-bottom: 80px;
     }
-    .meta {
-      margin-top: 20px;
+    .section-label {
       font-size: 11px;
-      color: #555;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
+      color: var(--dim);
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 32px;
     }
-    a {
-      color: #D4A574;
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      list-style: none;
+    }
+    .card {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      padding: 32px 28px;
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 4px;
       text-decoration: none;
+      color: inherit;
+      transition: border-color 200ms ease, transform 200ms ease;
+    }
+    .card:hover {
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+    .card-thumb {
+      width: 140px;
+      height: 80px;
+      flex-shrink: 0;
+      background: #000;
+      border-radius: 2px;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+    }
+    .card-thumb img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .card-body { flex: 1; }
+    .card-title {
+      font-size: 24px;
+      font-weight: 300;
+      margin-bottom: 6px;
+    }
+    .card-meta {
+      font-size: 13px;
+      color: var(--dim);
+      letter-spacing: 0.05em;
+    }
+    .card-arrow {
+      font-size: 24px;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    footer {
+      margin-top: 96px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      font-size: 11px;
+      color: var(--dim);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+    }
+    @media (max-width: 640px) {
+      .wrap { padding: 48px 20px 80px; }
+      h1 { font-size: 36px; }
+      .card { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .card-thumb { width: 100%; height: 160px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Lenovo Smart Lock F3</h1>
-    <p class="sub">World's 1st Solar-Powered Smart Lock</p>
-    <video controls autoplay loop muted playsinline>
-      <source src="/video.mp4" type="video/mp4">
-      Your browser does not support video.
-    </video>
-    <p class="meta">35s · 1080×1920 portrait · for LockTech review</p>
+  <div class="wrap">
+    <div class="eyebrow">Field notes · vol. i</div>
+    <h1>Lenovo Smart Lock <em>F3</em></h1>
+    <p class="lede">World's first solar-powered smart lock. A series of previews, segmented by topic — each entry is a self-contained walk-through of one feature or finish.</p>
+
+    <div class="section-label">Previews</div>
+    <ul class="cards">
+      <li>
+        <a class="card" href="/35s/">
+          <div class="card-thumb">
+            <img src="/video.mp4-thumb.jpg" alt="" onerror="this.style.display='none'">
+          </div>
+          <div class="card-body">
+            <div class="card-title">/35s — Quick preview</div>
+            <div class="card-meta">11 slides · 35 seconds · cuts to the core</div>
+          </div>
+          <div class="card-arrow">→</div>
+        </a>
+      </li>
+    </ul>
+
+    <footer>
+      <span>Lenovo Smart Lock F3</span>
+      <span>LockTech preview</span>
+    </footer>
   </div>
 </body>
 </html>

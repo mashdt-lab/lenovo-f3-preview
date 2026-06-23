@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Lenovo Smart Lock F3 — 35s Slideshow</title>
+
+    <!-- Load HyperFrames player + slideshow bundles from official CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@hyperframes/player@0.7.3/dist/hyperframes-player.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@hyperframes/player@0.7.3/dist/slideshow/hyperframes-slideshow.global.js"></script>
+
+    <style>
+      @font-face {
+        font-family: "Sukhumvit Set";
+        src: local("Sukhumvit Set"),
+             local("SukhumvitSet"),
+             url("./assets/fonts/SukhumvitSet.ttc") format("truetype-collection");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: block;
+      }
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #0A0A0A;
+        color: #F5F5F5;
+        font-family: "Sukhumvit Set";
+      }
+      hyperframes-slideshow {
+        display: block;
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+      }
+      hyperframes-player {
+        position: absolute;
+        inset: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- tabindex="0" required so arrow keys work -->
+    <hyperframes-slideshow tabindex="0">
+      <hyperframes-player
+        interactive
+        src="./composition/index.html"
+      ></hyperframes-player>
+
+      <!-- DUPLICATED ISLAND — keep in sync with composition/index.html -->
+      <script type="application/hyperframes-slideshow+json">
+        {
+          "slides": [
+            { "sceneId": "scene-hero", "notes": "Hero — Lenovo Smart Lock F3." },
+            { "sceneId": "scene-i-build", "notes": "The build — CNC-milled, 5000mAh, 5-inch." },
+            { "sceneId": "scene-ii-solar", "notes": "Replaceable solar panel." },
+            { "sceneId": "scene-iii-camera", "notes": "Dual-camera 150° + 135°." },
+            { "sceneId": "scene-iv-palm", "notes": "Palm vein — touch-free." },
+            { "sceneId": "scene-v-face", "notes": "3D face." },
+            { "sceneId": "scene-vi-recognition", "notes": "Hat/makeup OK, reject photos." },
+            { "sceneId": "scene-vii-night", "notes": "Infrared night vision." },
+            { "sceneId": "scene-viii-security", "notes": "Anti-Pry, Lockdown, Loitering." },
+            { "sceneId": "scene-ix-unlock", "notes": "11 unlocking methods." },
+            { "sceneId": "scene-x-finishes", "notes": "Five finishes." },
+            { "sceneId": "scene-outro", "notes": "Filed under field notes · vol. i." }
+          ],
+          "slideSequences": []
+        }
+      </script>
+    </hyperframes-slideshow>
+  </body>
+</html>

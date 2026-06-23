@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Lenovo Smart Lock F3 — Composition</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Sukhumvit Set";
+        src: local("Sukhumvit Set"),
+             local("SukhumvitSet"),
+             url("../assets/fonts/SukhumvitSet.ttc") format("truetype-collection");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: block;
+      }
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #0A0A0A;
+        font-family: "Sukhumvit Set";
+        font-weight: 300;
+        color: #F5F5F5;
+      }
+      .scene-frame {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #0A0A0A;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .scene-bg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+      }
+      .scene-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 80px 60px 120px;
+        background: linear-gradient(180deg,
+          rgba(10,10,10,0.0) 0%,
+          rgba(10,10,10,0.4) 35%,
+          rgba(10,10,10,0.85) 65%,
+          rgba(10,10,10,0.95) 100%);
+      }
+      [data-anim] { opacity: 0; }
+      .scene-eyebrow {
+        font-size: 22px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: #D4A574;
+        margin-bottom: 24px;
+      }
+      .scene-title {
+        font-size: 78px;
+        font-weight: 300;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        margin-bottom: 18px;
+      }
+      .scene-title em { font-style: italic; color: #D4A574; }
+      .scene-body {
+        font-size: 32px;
+        line-height: 1.4;
+        color: rgba(245,245,245,0.78);
+        font-weight: 300;
+        max-width: 920px;
+      }
+      .scene-body + .scene-body { margin-top: 12px; }
+      .scene-meta {
+        font-size: 14px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(212,165,116,0.7);
+        margin-top: 32px;
+      }
+      /* Hero */
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 80px 60px;
+        background: linear-gradient(180deg,
+          rgba(10,10,10,0.7) 0%,
+          rgba(10,10,10,0.2) 30%,
+          rgba(10,10,10,0.4) 70%,
+          rgba(10,10,10,0.95) 100%);
+      }
+      .hero-top .label, .hero-bottom .label {
+        font-size: 22px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: #D4A574;
+      }
+      .hero-bottom .title {
+        font-size: 96px;
+        font-weight: 200;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        margin-bottom: 16px;
+      }
+      .hero-bottom .title em { font-style: italic; color: #D4A574; }
+      .hero-bottom .tagline {
+        font-size: 36px;
+        font-weight: 300;
+        color: rgba(245,245,245,0.85);
+        line-height: 1.3;
+      }
+      /* Outro */
+      .outro-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 120px 60px;
+        text-align: center;
+        background: linear-gradient(180deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.95) 100%);
+      }
+      .outro-overlay .mark {
+        font-size: 22px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: #D4A574;
+        margin-bottom: 32px;
+      }
+      .outro-overlay .statement {
+        font-size: 56px;
+        font-weight: 300;
+        font-style: italic;
+        color: rgba(245,245,245,0.9);
+        line-height: 1.3;
+        max-width: 880px;
+      }
+      .outro-overlay .filed {
+        font-size: 14px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: rgba(212,165,116,0.7);
+        margin-top: 48px;
+      }
+      /* Finishes */
+      .finishes-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 80px 60px;
+      }
+      .finishes-overlay .header .label {
+        font-size: 22px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: #D4A574;
+        margin-bottom: 16px;
+      }
+      .finishes-overlay .header h2 {
+        font-size: 72px;
+        font-weight: 300;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+      .finishes-overlay .header h2 em { font-style: italic; color: #D4A574; }
+      .finishes-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+        flex: 1;
+        align-content: center;
+      }
+      .finish-card {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(212,165,116,0.15);
+        border-radius: 6px;
+        padding: 20px;
+      }
+      .finish-card img {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 4px;
+        margin-bottom: 12px;
+        background: #000;
+      }
+      .finish-card .name {
+        font-size: 24px;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+      }
+      .finish-card .name em { font-style: italic; color: #D4A574; }
+    </style>
+  </head>
+  <body>
+    <!-- DUPLICATED ISLAND — kept in sync with /35s/index.html -->
+    <script type="application/hyperframes-slideshow+json">
+      {
+        "slides": [
+          { "sceneId": "scene-hero", "notes": "Hero" },
+          { "sceneId": "scene-i-build", "notes": "The build" },
+          { "sceneId": "scene-ii-solar", "notes": "Solar" },
+          { "sceneId": "scene-iii-camera", "notes": "Camera" },
+          { "sceneId": "scene-iv-palm", "notes": "Palm vein" },
+          { "sceneId": "scene-v-face", "notes": "3D face" },
+          { "sceneId": "scene-vi-recognition", "notes": "Recognition" },
+          { "sceneId": "scene-vii-night", "notes": "Night vision" },
+          { "sceneId": "scene-viii-security", "notes": "Security" },
+          { "sceneId": "scene-ix-unlock", "notes": "11 methods" },
+          { "sceneId": "scene-x-finishes", "notes": "Finishes" },
+          { "sceneId": "scene-outro", "notes": "Outro" }
+        ],
+        "slideSequences": []
+      }
+    </script>
+
+    <!-- 1. HERO — 3s, 0-3 -->
+    <div data-composition-id="main" data-start="0" data-duration="35" data-track-index="0" data-width="1080" data-height="1920">
+    <div id="scene-hero" class="scene-frame clip"
+         data-composition-id="scene-hero"
+         data-start="0" data-duration="3"
+         data-track-index="1" data-width="1080" data-height="1920">
+      <img class="scene-bg" src="../assets/hero-video-frame.jpg" alt="">
+      <div class="hero-overlay">
+        <div class="hero-top"><div class="label" data-anim>Field notes · vol. i</div></div>
+        <div class="hero-bottom">
+          <div class="title" data-anim>Lenovo Smart Lock <em>F3</em></div>
+          <div class="tagline" data-anim>World's first solar-powered smart lock</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. i. THE BUILD — 3s, 3-6 -->
+    <div id="scene-i-build" class="scene-frame clip"
+         data-composition-id="scene-i-build"
+         data-start="3" data-duration="3"
+         data-track-index="1" data-width="1080" data-height="1920">
+      <img class="scene-bg" src="../assets/parameters.jpg" alt="">
+      <div class="scene-overlay">
+        <div class="scene-eyebrow" data-anim>i. The build</div>
+        <div class="scene-title" data-anim>CNC-milled, <em>quietly considered.</em></div>
+        <div class="scene-body" data-anim>415 × 76 × 34.5 mm · 5000 mAh · 5-inch HD · Grade C lock cylinder</div>
+        <div class="scene-meta" data-anim>Lenovo Smart Lock F3</div>
+      </div>
+    </div>
+
+    <!-- 3. ii. SOLAR — 3s, 6-9 -->
+    <div id="scene-ii-solar" class="scene-frame clip"
+         data-composition-id="scene-ii-solar"
+         data-start="6" data-duration="3"
+         data-track-index="1" data-width="1080" data-height="1920">
+      <img class="scene-bg" src="../assets/sec-solar.jpg" alt="">
+      <div class="scene-overlay">
+        <div class="scene-eyebrow" data-anim>ii. Solar — new energy</div>
+        <div class="scene-title" data-anim>A panel that <em>changes</em> with the door.</div>
+        <div class="scene-body" data-anim>Replaceable solar decorative panel · 4 finishes, swap anytime</div>
+        <div class="scene-meta" data-anim>Charges even on cloudy days</div>
+      </div>
+    </div>
+
+    <!-- 4. iii. CAMERA — 3s, 9-12 -->
+    <div id="scene-iii-camera" class="scene-frame clip"
+         data-composition-id="scene-iii-camera"
+         data-start="9" data-duration="3"
+         data-track-index="1" data-width="1080" data-height="1920">
+      <img class="scene-bg" src="../assets/sec-camera.jpg" alt="">
+      <div class="scene-overlay">
+        <div class="scene-eyebrow" data-anim>iii. Camera</div>
+        <div class="scene-title" data-anim>Two lenses. <em>No blind spot.</em></div>
+        <div class="scene-body" data-anim>150° + 135° wide-angle · 5-inch HD screen · 89° capture</div>
+        <div class="scene-meta" data-anim>Dead-angle-free monitoring</div>
+      </div>
+    </div>
+
+    <!-- 5. iv. PALM VEIN — 3s, 12-15 -->
+    <div id="scene-iv-palm" class="scene-frame clip"
+         data-composition-id="scene-iv-palm"
+         data-start="12" data-duration="3"
+         data-track-index="1" data-width="1080" data-height="1920">
+      <img class="scene-bg" src="../assets/sec-palm.jpg" alt="">
+      <div class="scene-overlay">
+        <div class="scene-eyebrow" data-anim>iv. Palm vein</div>
+        <div class="scene-title" data-anim>A wave is the <em>key.</em></div>
+        <div class="scene-body" data-anim>Touch-free · palm-waving unlock · 100 vein profiles</div>
+        <div class="scene-meta" data-anim>Effortless, contactless entry</div>
+      </div>
+    </div>
+
+    <!-- 6. v. 3D FACE — 3s, 15-18 -->
+    <div id="scene-v-face" class="scene-frame clip"
+         data-composition-id="scene-v-face"
+         data-start="15" data-duration="3"
+         data-track-index="1" data-width="1080" data-height="1920">
+      <img class="scene-bg" src="../assets/sec-face.jpg" alt="">
+      <div class="scene-overlay">
+        <div class="scene-eyebrow" data-anim>v. 3D facial</div>
+        <div class="scene-title" data-anim>Look. <em>Walk in.</em></div>
+        <div class="scene-body" data-anim>3D facial features · 100 face profiles · rejects photos & video</div>
+        <div class="scene-meta" data-anim>Effortless touchless entry</div>
+      </div>
+    </div>
+
+    <!-- 7. vi. RECOGNITION — 3s, 18-21 -->
+    <div id="scene-vi-recognition" class="scene-frame clip"
+         data-composition-id="scene-vi-recognition"
+         data-start="18" data-duration="3"
+         data-track-index="1" data-width="1080" data-height="1920">
+      <img class="scene-bg" src="../assets/sec-recognition.jpg" alt="">
+      <div class="scene-overlay">
+        <div class="scene-eyebrow" data-anim>vi. Recognition</div>
+        <div class="scene-title" data-anim>Hat on. <em>Still reads you.</em></div>
+        <div class="scene-body" data-anim>Reads through makeup, hats, accessories · rejects photos, video, masks</div>
+        <div class="scene-meta" data-anim>Reliable in any look</div>
+      </div>
+    </div>
+
+    <!-- 8. vii. NIGHT VISION — 3s, 21-24 -->
+    <div id="scene-vii-night" class="scene-frame clip"
+         data-composition-id="scene-vii-night"
+         data-start="21" data-duration="3"
+         data-track-index="1" data-width="1080" data-height="1920">
+      <img class="scene-bg" src="../assets/sec-night.jpg" alt="">
+      <div class="scene-overlay">
+        <div class="scene-eyebrow" data-anim>vii. Night vision</div>
+        <div class="scene-title" data-anim>Eyes that <em>never sleep.</em></div>
+        <div class="scene-body" data-anim>Infrared fill light · 24-hour active monitoring</div>
+        <div class="scene-meta" data-anim>Capture anomalies, day and night</div>
+      </div>
+    </div>
+
+    <!-- 9. viii. SECURITY — 3s, 24-27 -->
+    <div id="scene-viii-security" class="scene-frame clip"
+         data-composition-id="scene-viii-security"
+         data-start="24" data-duration="3"
+         data-track-index="1" data-width="1080" data-height="1920">
+      <img class="scene-bg" src="../assets/sec-lock.jpg" alt="">
+      <div class="scene-overlay">
+        <div class="scene-eyebrow" data-anim>viii. Security</div>
+        <div class="scene-title" data-anim>Built to <em>hold the line.</em></div>
+        <div class="scene-body" data-anim>Anti-pry alarm · Multi-attempt lockdown · Loitering alert · Anti-coercion alert</div>
+        <div class="scene-meta" data-anim>Grade C lock cylinder · Low-power deadbolt</div>
+      </div>
+    </div>
+
+    <!-- 10. ix. UNLOCKING — 3s, 27-30 -->
+    <div id="scene-ix-unlock" class="scene-frame clip"
+         data-composition-id="scene-ix-unlock"
+         data-start="27" data-duration="3"
+         data-track-index="1" data-width="1080" data-height="1920">
+      <img class="scene-bg" src="../assets/sec-unlock.jpg" alt="">
+      <div class="scene-overlay">
+        <div class="scene-eyebrow" data-anim>ix. Unlocking methods</div>
+        <div class="scene-title" data-anim>Eleven ways <em>in.</em></div>
+        <div class="scene-body" data-anim>Palm Vein · 3D Face · Fingerprint · PIN · Card · Key · Temp Password · Cyclical · APP · Siri · Echo</div>
+        <div class="scene-meta" data-anim>Adapts to people and scenarios</div>
+      </div>
+    </div>
+
+    <!-- 11. x. FINISHES — 3s, 30-33 -->
+    <div id="scene-x-finishes" class="scene-frame clip"
+         data-composition-id="scene-x-finishes"
+         data-start="30" data-duration="3"
+         data-track-index="1" data-width="1080" data-height="1920">
+      <img class="scene-bg" src="../assets/black-logo-light.png" alt="">
+      <div class="finishes-overlay">
+        <div class="header">
+          <div class="label" data-anim>x. Finishes</div>
+          <h2 data-anim>Five considered <em>finishes.</em></h2>
+        </div>
+        <div class="finishes-grid">
+          <div class="finish-card" data-anim>
+            <img src="../assets/black.png" alt="Black">
+            <div class="name"><em>Black</em></div>
+          </div>
+          <div class="finish-card" data-anim>
+            <img src="../assets/gold.png" alt="Gold">
+            <div class="name"><em>Gold</em></div>
+          </div>
+          <div class="finish-card" data-anim>
+            <img src="../assets/gold-stone.png" alt="Gold stone">
+            <div class="name"><em>Gold stone</em></div>
+          </div>
+          <div class="finish-card" data-anim>
+            <img src="../assets/black-star.png" alt="Black star">
+            <div class="name"><em>Black star</em></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. OUTRO — 2s, 33-35 -->
+    <div id="scene-outro" class="scene-frame clip"
+         data-composition-id="scene-outro"
+         data-start="33" data-duration="2"
+         data-track-index="1" data-width="1080" data-height="1920">
+      <img class="scene-bg" src="../assets/hero-video-frame.jpg" alt="">
+      <div class="outro-overlay">
+        <div class="mark" data-anim>Filed under</div>
+        <div class="statement" data-anim>A quiet object, well considered.</div>
+        <div class="filed" data-anim>Field notes · vol. i · Lenovo Smart Lock F3</div>
+      </div>
+    </div>
+    </div>
+
+    <!-- Root timeline — total 35s, seekable by hyperframes-player -->
+    <script>
+      (function () {
+        window.__timelines = window.__timelines || {};
+        var main = gsap.timeline({ paused: true });
+        main.to({}, { duration: 35 });
+        window.__timelines.main = main;
+      })();
+    </script>
+
+    <!-- Visibility + entrance controller -->
+    <script>
+      (function () {
+        var scenes = [
+          { id: "scene-hero",        start: 0,  end: 3 },
+          { id: "scene-i-build",     start: 3,  end: 6 },
+          { id: "scene-ii-solar",    start: 6,  end: 9 },
+          { id: "scene-iii-camera",  start: 9,  end: 12 },
+          { id: "scene-iv-palm",     start: 12, end: 15 },
+          { id: "scene-v-face",      start: 15, end: 18 },
+          { id: "scene-vi-recognition", start: 18, end: 21 },
+          { id: "scene-vii-night",   start: 21, end: 24 },
+          { id: "scene-viii-security", start: 24, end: 27 },
+          { id: "scene-ix-unlock",   start: 27, end: 30 },
+          { id: "scene-x-finishes",  start: 30, end: 33 },
+          { id: "scene-outro",       start: 33, end: 35 }
+        ];
+
+        var lastActiveId = null;
+
+        function fireEntrance(sceneEl) {
+          var animEls = sceneEl.querySelectorAll("[data-anim]");
+          if (!animEls.length) return;
+          gsap.fromTo(animEls,
+            { opacity: 0, y: 28 },
+            { opacity: 1, y: 0, duration: 0.5, stagger: 0.07, ease: "power2.out", overwrite: true }
+          );
+        }
+
+        function updateVisibility(t) {
+          for (var i = 0; i < scenes.length; i++) {
+            var s = scenes[i];
+            var el = document.getElementById(s.id);
+            if (!el) continue;
+            var active = t >= s.start && t < s.end;
+            el.style.opacity = active ? "1" : "0";
+            el.style.visibility = active ? "visible" : "hidden";
+            el.style.pointerEvents = active ? "auto" : "none";
+
+            if (active && lastActiveId !== s.id) {
+              lastActiveId = s.id;
+              fireEntrance(el);
+            }
+          }
+        }
+
+        // Expose to wrapper for direct seeking
+        window.__hfSetTime = updateVisibility;
+
+        // Show first slide immediately
+        updateVisibility(0);
+
+        // Hook root timeline onUpdate
+        var root = window.__timelines && window.__timelines.main;
+        if (root) {
+          root.eventCallback("onUpdate", function () {
+            updateVisibility(root.time());
+          });
+        }
+      })();
+    </script>
+
+    <!-- Post scenes manifest to parent wrapper so slideshow can navigate -->
+    <script>
+      (function () {
+        var scenes = [
+          { id: "scene-hero",          start: 0,  duration: 3 },
+          { id: "scene-i-build",       start: 3,  duration: 3 },
+          { id: "scene-ii-solar",      start: 6,  duration: 3 },
+          { id: "scene-iii-camera",    start: 9,  duration: 3 },
+          { id: "scene-iv-palm",       start: 12, duration: 3 },
+          { id: "scene-v-face",        start: 15, duration: 3 },
+          { id: "scene-vi-recognition", start: 18, duration: 3 },
+          { id: "scene-vii-night",     start: 21, duration: 3 },
+          { id: "scene-viii-security", start: 24, duration: 3 },
+          { id: "scene-ix-unlock",     start: 27, duration: 3 },
+          { id: "scene-x-finishes",    start: 30, duration: 3 },
+          { id: "scene-outro",         start: 33, duration: 2 }
+        ];
+
+        function postTimeline() {
+          try {
+            parent.postMessage({
+              source: "hf-preview",
+              type: "timeline",
+              durationInFrames: 35 * 30,
+              scenes: scenes
+            }, "*");
+          } catch (e) {}
+        }
+
+        if (document.readyState === "complete") {
+          setTimeout(postTimeline, 300);
+        } else {
+          window.addEventListener("load", function () {
+            setTimeout(postTimeline, 300);
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
